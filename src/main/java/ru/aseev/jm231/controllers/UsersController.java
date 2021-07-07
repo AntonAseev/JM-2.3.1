@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.aseev.jm231.dao.UserDAO;
+import ru.aseev.jm231.dao.UserDAOImpl;
 import ru.aseev.jm231.model.User;
 
 import javax.validation.Valid;
@@ -14,22 +14,22 @@ import javax.validation.Valid;
 @RequestMapping("/users")
 public class UsersController {
 
-    private final UserDAO userDAO;
+    private final UserDAOImpl userDAOImpl;
 
     @Autowired
-    public UsersController(UserDAO userDAO) {
-        this.userDAO = userDAO;
+    public UsersController(UserDAOImpl userDAOImpl) {
+        this.userDAOImpl = userDAOImpl;
     }
 
     @GetMapping()
     public String allUsers(Model model) {
-        model.addAttribute("usersList", userDAO.allMyUsers());
+        model.addAttribute("usersList", userDAOImpl.allMyUsers());
         return "users/allUsers";
     }
-
+//
     @GetMapping("/{id}")
     public String getUniqueUser(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userDAO.uniqueMyUser(id));
+        model.addAttribute("user", userDAOImpl.uniqueMyUser(id));
         return "users/uniqueUser";
     }
 
@@ -38,32 +38,36 @@ public class UsersController {
         return "users/new";
     }
 
-    @PostMapping()
+    @PostMapping
     public String createUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
+        if (bindingResult.hasErrors()) {
             return "users/new";
-        userDAO.saveNewUser(user);
-        return "redirect:/users";
+        } else {
+            userDAOImpl.saveNewUser(user);
+            return "redirect:/users";
+        }
     }
 
     @GetMapping("/{id}/edit")
     public String editUser(Model model, @PathVariable("id") int id) {
-        model.addAttribute("user", userDAO.uniqueMyUser(id));
+        model.addAttribute("user", userDAOImpl.uniqueMyUser(id));
         return "users/edit";
     }
 
     @PatchMapping("/{id}")
     public String updateUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
                              @PathVariable("id") int id) {
-        if (bindingResult.hasErrors())
+        if (bindingResult.hasErrors()) {
             return "users/edit";
-        userDAO.changeUser(id, user);
-        return "redirect:/users";
+        } else {
+            userDAOImpl.changeUser(id, user);
+            return "redirect:/users";
+        }
     }
 
     @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable("id") int id) {
-        userDAO.dropUser(id);
+        userDAOImpl.dropUser(id);
         return "redirect:/users";
     }
 
