@@ -23,12 +23,12 @@ public class UsersController {
 
     @GetMapping()
     public String allUsers(Model model) {
-        model.addAttribute("usersList", userDAOImpl.allMyUsers());
+        model.addAttribute("users", userDAOImpl.allMyUsers());
         return "users/allUsers";
     }
 //
     @GetMapping("/{id}")
-    public String getUniqueUser(@PathVariable("id") int id, Model model) {
+    public String getUniqueUser(@PathVariable("id") long id, Model model) {
         model.addAttribute("user", userDAOImpl.uniqueMyUser(id));
         return "users/uniqueUser";
     }
@@ -49,14 +49,14 @@ public class UsersController {
     }
 
     @GetMapping("/{id}/edit")
-    public String editUser(Model model, @PathVariable("id") int id) {
+    public String editUser(Model model, @PathVariable("id") long id) {
         model.addAttribute("user", userDAOImpl.uniqueMyUser(id));
         return "users/edit";
     }
 
     @PatchMapping("/{id}")
     public String updateUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
-                             @PathVariable("id") int id) {
+                             @PathVariable("id") long id) {
         if (bindingResult.hasErrors()) {
             return "users/edit";
         } else {
@@ -66,7 +66,7 @@ public class UsersController {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteUser(@PathVariable("id") int id) {
+    public String deleteUser(@PathVariable("id") long id) {
         userDAOImpl.dropUser(id);
         return "redirect:/users";
     }

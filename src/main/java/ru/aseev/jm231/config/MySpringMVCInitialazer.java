@@ -10,7 +10,7 @@ import javax.servlet.ServletException;
 public class MySpringMVCInitialazer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[]{JavaSpringConfig.class};
+        return null;
     }
 
     @Override
