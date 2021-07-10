@@ -60,7 +60,7 @@ public class AppConfig {
         factoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         factoryBean.setDataSource(getDataSource());
         factoryBean.setPersistenceUnitName("myJpaPersistenceUnit");
-        factoryBean.setPackagesToScan("db.entity.package");
+        factoryBean.setPackagesToScan("ru.aseev.jm231");
         factoryBean.setJpaProperties(props);
         return factoryBean;
     }
