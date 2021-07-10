@@ -1,8 +1,5 @@
 package ru.aseev.jm231.model;
 
-import org.hibernate.annotations.GenericGenerator;
-
-
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;

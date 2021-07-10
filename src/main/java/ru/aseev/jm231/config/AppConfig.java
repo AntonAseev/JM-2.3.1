@@ -47,10 +47,6 @@ public class AppConfig {
         return dataSource;
     }
 
-//    @Bean
-//    public LocalSessionFactoryBean getSessionFactory() {
-//        LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
-//        factoryBean.setDataSource(getDataSource());
     @Bean
         public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         Properties props=new Properties();
@@ -77,11 +73,4 @@ public class AppConfig {
         JpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
         return adapter;
     }
-
-//    @Bean
-//    public HibernateTransactionManager getTransactionManager() {
-//        HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-//        transactionManager.setSessionFactory(getSessionFactory().getObject());
-//        return transactionManager;
-//    }
 }

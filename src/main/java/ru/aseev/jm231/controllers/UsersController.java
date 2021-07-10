@@ -70,5 +70,4 @@ public class UsersController {
         userDAOImpl.dropUser(id);
         return "redirect:/users";
     }
-
 }
